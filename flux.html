@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#020617]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACAV Flux</title>
+  <link rel="icon" href="logo.png" type="image/x-icon">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Inter & Orbitron Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    .font-brand {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* 2000s Aero Background Gradient with Deep Sky Ambient Radial Glow */
+    .aero-bg {
+      background: 
+        radial-gradient(ellipse at 50% 15%, rgba(14, 165, 233, 0.35) 0%, rgba(3, 105, 225, 0.18) 40%, rgba(2, 6, 23, 0.98) 80%),
+        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(30, 58, 138, 0.35) 0%, transparent 50%),
+        #020617;
+    }
+
+    /* Floating Frutiger Aero Light Orbs */
+    .aero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      pointer-events: none;
+      animation: floatOrb 12s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(37, 99, 235, 0.05) 70%, transparent 100%);
+      top: 10%;
+      left: 15%;
+    }
+
+    .orb-2 {
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.2) 0%, rgba(30, 64, 175, 0.08) 70%, transparent 100%);
+      bottom: 10%;
+      right: 15%;
+      animation-delay: -6s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-30px) scale(1.08); }
+    }
+
+    /* 2000s Aero Frosted Glass Window / Card */
+    .aero-glass-card {
+      background: linear-gradient(145deg, rgba(12, 30, 62, 0.82) 0%, rgba(5, 16, 38, 0.92) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      /* Gloss Specular Highlight Edge */
+      border: 1px solid rgba(186, 230, 253, 0.35);
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      border-left: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 3px 0 rgba(0, 0, 0, 0.6),
+        0 20px 50px -10px rgba(0, 0, 0, 0.85),
+        0 0 35px 2px rgba(14, 165, 233, 0.25);
+    }
+
+    /* Aero Curved Top Glass Reflection Layer */
+    .aero-gloss-reflection {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.04) 45%,
+        rgba(0, 0, 0, 0.15) 46%,
+        transparent 100%
+      );
+    }
+
+    /* Scanlines / CRT Raster Surface Texture */
+    .scanlines-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.03) 50%,
+        rgba(0, 0, 0, 0.35) 51%
+      );
+      background-size: 100% 4px;
+    }
+
+    /* 2000s Web 2.0 Split-Shine Gel Buttons */
+    .btn-aero-gel {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #3b82f6 0%, #2563eb 48%, #1d4ed8 50%, #1e40af 100%);
+      border: 1px solid rgba(191, 219, 254, 0.7);
+      border-top: 1px solid rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.8);
+      border-radius: 14px;
+      box-shadow: 
+        inset 0 1px 2px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
+        0 6px 18px -2px rgba(37, 99, 235, 0.5),
+        0 2px 6px 0 rgba(0, 0, 0, 0.4);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+      transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Top Split Gel Shine Layer */
+    .btn-aero-gel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48%;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.65) 0%,
+        rgba(255, 255, 255, 0.15) 100%
+      );
+      border-radius: 12px 12px 0 0;
+      pointer-events: none;
+    }
+
+    /* Hover State with Intense Aero Specular Glow */
+    .btn-aero-gel:hover {
+      background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 48%, #2563eb 50%, #1d4ed8 100%);
+      box-shadow: 
+        inset 0 1px 3px 0 rgba(255, 255, 255, 1),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.5),
+        0 8px 25px 2px rgba(56, 189, 248, 0.75),
+        0 0 15px 1px rgba(147, 197, 253, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Active / Press Down State */
+    .btn-aero-gel:active {
+      transform: translateY(1px);
+      background: linear-gradient(180deg, #1d4ed8 0%, #1e40af 50%, #1e3a8a 100%);
+      box-shadow: 
+        inset 0 2px 4px 0 rgba(0, 0, 0, 0.6),
+        0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Aero Gloss Pill Badge */
+    .aero-badge {
+      background: linear-gradient(180deg, rgba(14, 116, 233, 0.6) 0%, rgba(3, 105, 225, 0.8) 100%);
+      border: 1px solid rgba(186, 230, 253, 0.5);
+      border-top: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Neon Chrome Text Glow */
+    .text-glow-aero {
+      text-shadow: 
+        0 0 10px rgba(186, 230, 253, 0.8),
+        0 0 20px rgba(56, 189, 248, 0.6),
+        0 0 35px rgba(37, 99, 235, 0.5);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 aero-bg relative select-none">
+
+  <!-- Ambient Glowing Orbs -->
+  <div class="aero-orb orb-1"></div>
+  <div class="aero-orb orb-2"></div>
+
+  <!-- Background Grid Line Pattern -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#38bdf80a_1px,transparent_1px),linear-gradient(to_bottom,#38bdf80a_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+  <!-- MAIN AERO GLASS CARD CONTAINER -->
+  <main class="w-full max-w-[480px] aero-glass-card rounded-[26px] overflow-hidden shadow-2xl relative z-10 my-auto">
+    
+    <!-- TOP HEADER BANNER (Glossy Reflection + Scanlines) -->
+    <div class="relative pt-9 pb-8 px-6 text-center border-b border-cyan-300/20 overflow-hidden">
+      
+      <!-- Aero Gloss Reflection Curve -->
+      <div class="absolute inset-0 aero-gloss-reflection pointer-events-none"></div>
+      
+      <!-- CRT Scanline Raster -->
+      <div class="absolute inset-0 scanlines-overlay opacity-30 pointer-events-none"></div>
+
+      <!-- Top Right Release Pill Badge -->
+      <div class="absolute top-4 right-4 z-20">
+        <div class="aero-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide text-cyan-100">
+          <span class="w-2 h-2 rounded-full bg-cyan-300 animate-pulse shadow-[0_0_8px_#38bdf8]"></span>
+          <span>v1.0.0 (Release)</span>
+        </div>
+      </div>
+
+      <!-- APP BRAND TITLE -->
+      <div class="relative z-10 pt-3">
+        <h1 class="font-brand text-4xl sm:text-5xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-white via-cyan-100 to-sky-300 text-glow-aero uppercase">
+          FLUX<span class="text-xs align-super ml-0.5 text-cyan-200 font-sans font-extrabold">TM</span>
+        </h1>
+        <p class="text-[11px] sm:text-[12px] font-extrabold tracking-[0.28em] text-cyan-200/95 uppercase mt-2 drop-shadow-md">
+          USB FLASHING SOFTWARE
+        </p>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT BODY SECTION -->
+    <div class="p-6 sm:p-8 space-y-6 bg-slate-950/40 relative">
+      
+      <!-- Content Heading & Description -->
+      <div class="space-y-2.5">
+        <h2 class="text-lg sm:text-xl font-extrabold text-white tracking-tight flex items-center gap-2 drop-shadow">
+          ACAV Flux
+        </h2>
+        <p class="text-[13px] sm:text-[14px] leading-relaxed text-slate-200 font-medium drop-shadow-sm">
+          Flash with confidence. Flux is a sleek, open-source USB imaging tool engineered for modern hardware. Whether you're installing a new operating system, testing Linux distributions, or building recovery media, Flux delivers a fast, reliable, and distraction-free experience.
+        </p>
+      </div>
+
+      <!-- Action Download Buttons -->
+      <div class="space-y-4 pt-1">
+        
+        <!-- BUTTON 1: WINDOWS DOWNLOAD -->
+        <button 
+          id="btn-win"
+          onclick="initiateDownload('windows')" 
+          class="w-full btn-aero-gel py-3.5 px-6 flex items-center justify-between text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase group cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-300"
+        >
+          <div class="flex items-center gap-3 relative z-10">
+            <!-- Windows Logo Icon -->
+            <i class="fa-brands fa-windows text-lg text-cyan-100 group-hover:scale-110 transition-transform drop-shadow"></i>
+            <span class="drop-shadow-md">DOWNLOAD FOR WINDOWS</span>
+          </div>
+          <i class="fa-solid fa-download text-xs text-cyan-100 group-hover:translate-y-0.5 transition-transform relative z-10 drop-shadow"></i>
+        </button>
+
+        <!-- BUTTON 2: LINUX DOWNLOAD -->
+        <button 
+          id="btn-linux"
+          onclick="initiateDownload('linux')" 
+          class="w-full btn-aero-gel py-3.5 px-6 flex items-center justify-between text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase group cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-300"
+        >
+          <div class="flex items-center gap-3 relative z-10">
+            <!-- Linux Tux Logo Icon -->
+            <i class="fa-brands fa-linux text-lg text-cyan-100 group-hover:scale-110 transition-transform drop-shadow"></i>
+            <span class="drop-shadow-md">DOWNLOAD FOR LINUX</span>
+          </div>
+          <i class="fa-solid fa-download text-xs text-cyan-100 group-hover:translate-y-0.5 transition-transform relative z-10 drop-shadow"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- DOWNLOAD PROGRESS TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+
+  <script>
+    /**
+     * =========================================================================
+     * EASY CONFIGURATION: DIRECT FILE DOWNLOAD PATHS
+     * Replace these strings with your exact repository path or download URL!
+     * =========================================================================
+     */
+    const DOWNLOAD_CONFIG = {
+      // Windows ZIP file relative path or direct URL in your repository
+      windowsFilePath: 'ACAV-Flux-WindowsX64.zip',
+      
+      // Linux Installer/Executable path or direct URL in your repository
+      linuxFilePath: ''
+    };
+
+    /**
+     * Notification Toast Manager (Frutiger Aero styled)
+     */
+    function showToast(title, message, iconClass = 'fa-circle-check', duration = 4000) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      toast.className = 'aero-glass-card text-white p-4 rounded-xl shadow-2xl pointer-events-auto flex items-start gap-3 transform translate-x-10 opacity-0 transition-all duration-300 border border-cyan-300/40';
+      toast.innerHTML = `
+        <div class="w-8 h-8 rounded-lg bg-cyan-500/30 border border-cyan-300/50 flex items-center justify-center shrink-0 text-cyan-200 shadow-inner">
+          <i class="fa-solid ${iconClass} text-sm drop-shadow"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="text-xs font-bold text-cyan-100 drop-shadow-sm">${title}</h4>
+          <p class="text-[11px] text-slate-200 mt-0.5 leading-snug">${message}</p>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-slate-300 hover:text-white text-xs">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      `;
+
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-x-10', 'opacity-0');
+      });
+
+      if (duration > 0) {
+        setTimeout(() => {
+          toast.classList.add('translate-x-10', 'opacity-0');
+          setTimeout(() => toast.remove(), 300);
+        }, duration);
+      }
+    }
+
+    /**
+     * Main initiateDownload Handler
+     * Directly triggers browser file download from specified target file path.
+     */
+    function initiateDownload(targetOS) {
+      const isWin = targetOS === 'windows';
+      const btn = isWin ? document.getElementById('btn-win') : document.getElementById('btn-linux');
+      const originalText = btn.innerHTML;
+      
+      // Get exact file path from config
+      const fileUrl = isWin ? DOWNLOAD_CONFIG.windowsFilePath : DOWNLOAD_CONFIG.linuxFilePath;
+      const fileName = fileUrl.split('/').pop() || (isWin ? 'acav-flux-windows.zip' : 'acav-flux-installer.sh');
+
+      // Visual button loading state feedback
+      btn.innerHTML = `
+        <div class="flex items-center gap-3 relative z-10">
+          <i class="fa-solid fa-spinner fa-spin text-lg text-cyan-100"></i>
+          <span>STARTING DOWNLOAD...</span>
+        </div>
+        <i class="fa-solid fa-ellipsis text-xs text-cyan-100 animate-pulse relative z-10"></i>
+      `;
+      btn.disabled = true;
+
+      // Show toast notification
+      showToast(
+        'Downloading File', 
+        `Triggering download for ${fileName}...`,
+        'fa-download',
+        3500
+      );
+
+      // Directly trigger browser download via HTML anchor
+      triggerDirectFileDownload(fileUrl, fileName);
+
+      // Reset button state after brief delay
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 1500);
+    }
+
+    /**
+     * Helper to trigger DOM file download without converting or dynamic zip building
+     */
+    function triggerDirectFileDownload(fileUrl, fileName) {
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = fileName;
+      link.setAttribute('target', '_blank'); // Allows download fallback across environments
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
