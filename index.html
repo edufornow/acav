@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACAV DIGITAL</title>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aero: {
+                            navy: '#030A1A',
+                            deepBlue: '#005A9E',
+                            cyan: '#00C3FF',
+                            aqua: '#00E5FF',
+                            orange: '#FF7700',
+                            magenta: '#D0008F',
+                            glass: 'rgba(255, 255, 255, 0.15)',
+                            border: 'rgba(255, 255, 255, 0.35)'
+                        }
+                    },
+                    fontFamily: {
+                        segoe: ['Segoe UI', 'Trebuchet MS', 'Tahoma', 'sans-serif'],
+                        display: ['Trebuchet MS', 'Segoe UI', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Base Web 2.0 Dark Aero Environment */
+        body {
+            background-color: #030A1A;
+            color: #F0F6FF;
+            font-family: 'Segoe UI', 'Trebuchet MS', Tahoma, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Frutiger Aero Ambient Aurora Background */
+        .aero-aurora-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 18% 15%, rgba(0, 195, 255, 0.28) 0%, transparent 40%),
+                radial-gradient(circle at 82% 25%, rgba(208, 0, 143, 0.22) 0%, transparent 45%),
+                radial-gradient(circle at 50% 75%, rgba(0, 90, 158, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(255, 119, 0, 0.20) 0%, transparent 38%),
+                linear-gradient(135deg, #020612 0%, #00122B 50%, #030A1A 100%);
+            pointer-events: none;
+        }
+
+        /* Light Ray Sweep Background Graphic */
+        .aero-aurora-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.04) 45%, rgba(0, 229, 255, 0.08) 50%, transparent 55%);
+            pointer-events: none;
+        }
+
+        /* Web 2.0 Crystal Glass Containers */
+        .web20-glass-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(10, 25, 50, 0.65) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.45),
+                inset 0 1px 1px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .web20-glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 195, 255, 0.6);
+            box-shadow: 
+                0 22px 45px rgba(0, 195, 255, 0.22),
+                inset 0 1px 2px rgba(255, 255, 255, 0.7);
+        }
+
+        /* Web 2.0 Liquid Aqua Gel Button - Flawless Curved Top Specular Reflection (No Lines Over Text) */
+        .gel-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #00C3FF 0%, #0066FF 50%, #0044CC 100%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            box-shadow: 
+                0 6px 18px rgba(0, 102, 255, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .gel-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 48%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.12) 100%);
+            border-radius: 11px 11px 100% 100% / 11px 11px 8px 8px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .gel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 10px 28px rgba(0, 195, 255, 0.65),
+                inset 0 1px 2px rgba(255, 255, 255, 1);
+            filter: brightness(1.08);
+        }
+
+        /* Secondary Glossy Glass Button */
+        .gel-btn-secondary {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(0, 20, 50, 0.4) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 12px;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.6);
+            transition: all 0.25s ease;
+            overflow: hidden;
+        }
+
+        .gel-btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 46%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 11px 11px 100% 100% / 11px 11px 8px 8px;
+            pointer-events: none;
+        }
+
+        .gel-btn-secondary:hover {
+            border-color: rgba(0, 195, 255, 0.7);
+            background: linear-gradient(180deg, rgba(0, 195, 255, 0.3) 0%, rgba(0, 102, 255, 0.15) 100%);
+            box-shadow: 0 0 20px rgba(0, 195, 255, 0.35);
+        }
+
+        /* Web 2.0 Navigation Tab Pill */
+        .nav-tab {
+            position: relative;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            color: #E2E8F0;
+            transition: all 0.25s ease;
+        }
+
+        .nav-tab.active, .nav-tab:hover {
+            color: #FFFFFF;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(0, 195, 255, 0.2) 100%);
+            border: 1px solid rgba(0, 195, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 195, 255, 0.3);
+            text-shadow: 0 0 8px rgba(0, 195, 255, 0.8);
+        }
+
+        /* Custom Web 2.0 Scrollbar */
+        ::-webkit-scrollbar { width: 9px; }
+        ::-webkit-scrollbar-track { background: #020612; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00C3FF, #005A9E);
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-slate-100 antialiased selection:bg-aero-cyan selection:text-black">
+
+    <!-- Ambient Frutiger Aero Mesh Glow -->
+    <div class="aero-aurora-bg"></div>
+
+    <!-- CORPORATE HEADER NAVBAR -->
+    <header class="sticky top-0 z-50 bg-slate-950/70 backdrop-blur-xl border-b border-white/20 shadow-xl transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- ACAV Digital Vector Brand Logo -->
+            <a href="#home" onclick="showSection('home')" class="flex items-center space-x-3 group focus:outline-none">
+                <div class="relative transform group-hover:scale-102 transition-transform duration-300">
+                    <svg width="210" height="58" viewBox="0 0 380 110" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-[0_0_15px_rgba(0,195,255,0.45)]">
+                        <defs>
+                            <!-- Linear & Radial Gradients for Brand Logo -->
+                            <linearGradient id="v-grad-A1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#0044CC" />
+                                <stop offset="100%" stop-color="#00C3FF" />
+                            </linearGradient>
+                            <linearGradient id="v-grad-C" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FF7700" />
+                                <stop offset="100%" stop-color="#FFC000" />
+                            </linearGradient>
+                            <linearGradient id="v-grad-A2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00C3FF" />
+                                <stop offset="100%" stop-color="#0044CC" />
+                            </linearGradient>
+                            <linearGradient id="v-grad-V" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#8A2BE2" />
+                                <stop offset="100%" stop-color="#D0008F" />
+                            </linearGradient>
+                            <linearGradient id="v-grad-swoosh" x1="0%" y1="50%" x2="100%" y2="50%">
+                                <stop offset="0%" stop-color="#00C3FF" />
+                                <stop offset="30%" stop-color="#FF7700" />
+                                <stop offset="70%" stop-color="#005A9E" />
+                                <stop offset="100%" stop-color="#D0008F" />
+                            </linearGradient>
+                            <radialGradient id="v-orb-light" cx="35%" cy="35%" r="65%">
+                                <stop offset="0%" stop-color="#FFFFFF" />
+                                <stop offset="35%" stop-color="#00E5FF" />
+                                <stop offset="100%" stop-color="#0044CC" />
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Cyan Swoosh Curve swinging top-right -->
+                        <path d="M 12 76 C 55 18, 245 -18, 362 38 C 302 10, 122 20, 22 81 Z" fill="url(#v-grad-swoosh)"/>
+
+                        <!-- Glowing 3D Orb -->
+                        <circle cx="312" cy="27" r="14" fill="url(#v-orb-light)" filter="drop-shadow(0 0 10px #00C3FF)" />
+
+                        <!-- ACAV Letters -->
+                        <path d="M 28 66 L 56 18 L 84 66 L 66 66 L 56 48 L 46 66 Z M 56 32 L 49 43 L 63 43 Z" fill="url(#v-grad-A1)" />
+                        <path d="M 122 22 C 92 22, 88 38, 88 42 C 88 58, 98 66, 122 66 C 135 66, 143 61, 147 57 L 147 47 L 129 47 L 129 54 C 125 56, 119 56, 112 55 C 102 53, 102 44, 102 41 C 102 32, 112 28, 125 28 C 133 28, 140 31, 145 34 L 151 26 C 143 22, 133 22, 122 22 Z" fill="url(#v-grad-C)" />
+                        <path d="M 152 66 L 180 18 L 208 66 L 190 66 L 180 48 L 170 66 Z M 180 32 L 173 43 L 187 43 Z" fill="url(#v-grad-A2)" />
+                        <path d="M 208 18 L 233 66 L 253 66 L 283 18 L 263 18 L 243 52 L 228 18 Z" fill="url(#v-grad-V)" />
+
+                        <!-- Subtext DIGITAL -->
+                        <text x="188" y="93" text-anchor="middle" font-family="'Trebuchet MS', sans-serif" font-weight="700" font-size="20" fill="#00C3FF" letter-spacing="9">DIGITAL</text>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Corporate Tab Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-2 bg-white/5 p-1.5 rounded-full border border-white/15 backdrop-blur-md">
+                <a href="#home" onclick="showSection('home')" id="tab-home" class="nav-tab active">Home</a>
+                <a href="#about" onclick="showSection('about')" id="tab-about" class="nav-tab">About Us</a>
+                <a href="#products" onclick="showSection('products')" id="tab-products" class="nav-tab">Digital Products</a>
+            </nav>
+
+            <!-- Launch Products Action CTA -->
+            <div class="flex items-center space-x-3">
+                <a href="#products" onclick="showSection('products')" class="gel-btn px-6 py-2.5 rounded-xl font-bold text-xs text-white uppercase tracking-wider flex items-center space-x-2">
+                    <i class="fa-solid fa-cube text-sm"></i>
+                    <span>Products Suite</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl gel-btn-secondary text-slate-200">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-950/95 border-t border-white/20 px-6 py-4 space-y-3 font-semibold text-sm">
+            <a href="#home" onclick="showSection('home'); toggleMobileMenu()" class="block py-2 text-slate-200 hover:text-aero-cyan">Home</a>
+            <a href="#about" onclick="showSection('about'); toggleMobileMenu()" class="block py-2 text-slate-200 hover:text-aero-cyan">About Us</a>
+            <a href="#products" onclick="showSection('products'); toggleMobileMenu()" class="block py-2 text-slate-200 hover:text-aero-cyan">Digital Products</a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="relative z-10">
+
+        <!-- SECTION 1: HERO SECTION -->
+        <section id="home" class="min-h-[85vh] flex items-center justify-center relative px-4 sm:px-6 lg:px-8 py-20">
+            <div class="max-w-5xl mx-auto text-center space-y-8 relative">
+                
+                <!-- Web 2.0 Corporate Badge -->
+                <div class="inline-flex items-center space-x-2 px-5 py-2 rounded-full web20-glass-card text-aero-cyan text-xs font-bold tracking-wider shadow-xl border border-aero-cyan/40">
+                    <span class="w-2.5 h-2.5 rounded-full bg-aero-cyan animate-pulse"></span>
+                    <span>DIGITAL SOFTWARE</span>
+                </div>
+
+                <!-- Main Tagline -->
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-tight font-display">
+                    ACAV DIGITAL <br/>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-aero-cyan via-blue-300 to-aero-magenta">
+                        SIMPLICITY BY DESIGN
+                    </span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-slate-200 text-base sm:text-xl max-w-3xl mx-auto font-normal leading-relaxed">
+                    ACAV Digital focuses on providing everyday users with a choice of downloading free software meant for professionals without any ads.
+                </p>
+
+                <!-- Glossy CTA Action Button Redirecting to Products -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 font-bold">
+                    <a href="#products" onclick="showSection('products')" class="gel-btn px-10 py-4 rounded-xl text-white text-sm font-bold flex items-center justify-center space-x-3 w-full sm:w-auto">
+                        <i class="fa-solid fa-rocket text-base"></i>
+                        <span>DIGITAL PRODUCTS SUITE</span>
+                    </a>
+                </div>
+
+                <!-- Web 2.0 Corporate Key Highlights Matrix -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-5 pt-12 text-center">
+                    <div class="web20-glass-card p-5 rounded-2xl">
+                        <div class="text-3xl font-bold font-display text-aero-cyan">Software</div>
+                        <div class="text-xs text-slate-300 font-semibold mt-1">At No Cost</div>
+                    </div>
+                    <div class="web20-glass-card p-5 rounded-2xl">
+                        <div class="text-3xl font-bold font-display text-aero-magenta">Products</div>
+                        <div class="text-xs text-slate-300 font-semibold mt-1">With No Ads</div>
+                    </div>
+                    <div class="web20-glass-card p-5 rounded-2xl">
+                        <div class="text-3xl font-bold font-display text-aero-orange">Program</div>
+                        <div class="text-xs text-slate-300 font-semibold mt-1">For Professionals</div>
+                    </div>
+                    <div class="web20-glass-card p-5 rounded-2xl">
+                        <div class="text-3xl font-bold font-display text-green-400">LTSC</div>
+                        <div class="text-xs text-slate-300 font-semibold mt-1">Support</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: ABOUT US SECTION -->
+        <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 relative border-t border-white/10 bg-slate-950/40">
+            <div class="max-w-7xl mx-auto space-y-16">
+                
+                <div class="text-center space-y-4">
+                    <div class="text-aero-cyan text-xs font-bold tracking-widest uppercase">// ABOUT ACAV DIGITAL</div>
+                    <h2 class="text-3xl sm:text-5xl font-bold font-display text-white">
+                        ENGINEERING DIGITAL <span class="text-aero-cyan">SOTWARE</span>
+                    </h2>
+                    <p class="text-slate-300 max-w-2xl mx-auto text-sm sm:text-base">
+                        Founded on principles of simplicity, professionalism and day to day use.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Pillar 1: Mission -->
+                    <div class="web20-glass-card p-8 space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-aero-deepBlue/40 border border-aero-cyan/50 flex items-center justify-center text-aero-cyan text-2xl shadow-lg">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <h3 class="text-xl font-bold font-display text-white">Free Software</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            ACAV Digital provides software at no extra cost and free to use without any advertisements.
+                        </p>
+                    </div>
+
+                    <!-- Pillar 2: Technical Vision -->
+                    <div class="web20-glass-card p-8 space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-aero-magenta/30 border border-aero-magenta/50 flex items-center justify-center text-aero-magenta text-2xl shadow-lg">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <h3 class="text-xl font-bold font-display text-white">Professional Grade</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Our software suites are built for professional use allowing everyday users to embrace a professional experience.
+                        </p>
+                    </div>
+
+                    <!-- Pillar 3: Web 2.0 Design Craft -->
+                    <div class="web20-glass-card p-8 space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-aero-orange/30 border border-aero-orange/50 flex items-center justify-center text-aero-orange text-2xl shadow-lg">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h3 class="text-xl font-bold font-display text-white">LTSC Support</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            We preserve the fundamental software without any short term annoying updates.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: SOFTWARE PRODUCTS SECTION (FLAT GRID PAGE) -->
+        <section id="products" class="py-24 px-4 sm:px-6 lg:px-8 relative border-t border-white/10 bg-slate-950/70">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <!-- Section Header Banner -->
+                <div class="web20-glass-card p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 border-l-4 border-l-aero-cyan">
+                    <div class="space-y-2 text-center md:text-left">
+                        <div class="text-aero-cyan text-xs font-bold tracking-widest uppercase">FLAGSHIP SOFTWARE MATRIX</div>
+                        <h2 class="text-3xl sm:text-4xl font-bold font-display text-white">
+                            ACAV Digital — <span class="text-aero-cyan">Digital Software Suite</span>
+                        </h2>
+                        <p class="text-slate-300 text-sm max-w-2xl">
+                            Explore and launch ACAV Digital's suite of professional-grade software platforms, runtimes, and developer engines.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center space-x-2 text-xs font-bold text-slate-300 bg-white/5 px-4 py-2 rounded-xl border border-white/15">
+                        <i class="fa-solid fa-circle-check text-green-400"></i>
+                        <span>Professional Grade</span>
+                    </div>
+                </div>
+
+                <!-- Software Products Flat Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Product 1: ACAV Engine -->
+                    <div class="web20-glass-card rounded-3xl overflow-hidden flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <!-- Image Banner Redirect -->
+                            <a href="flux.html" target="_blank" rel="noopener font-bold" class="block relative aspect-video overflow-hidden cursor-pointer">
+                                <img src="flux.png" alt="ACAV Flux" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                                <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/70 text-[10px] font-bold text-aero-cyan border border-aero-cyan/50">
+                                    v1.0.0 (Release)
+                                </div>
+                            </a>
+
+                            <div class="p-6 space-y-3">
+                                <h3 class="text-xl font-bold font-display text-white group-hover:text-aero-cyan transition-colors">ACAV Flux</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Flash with confidence. Flux is a sleek, open-source USB imaging tool engineered for modern hardware. Whether you're installing a new operating system, testing Linux distributions, or building recovery media, Flux delivers a fast, reliable, and distraction-free experience.
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 pt-2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 pt-0">
+                            <a href="flux.html" target="_blank" rel="noopener font-bold" class="gel-btn w-full py-3.5 rounded-xl text-xs text-white font-bold tracking-wider flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                <span>LAUNCH PRODUCT / VISIT SITE</span>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- WEB 2.0 CORPORATE FOOTER -->
+    <footer class="relative z-10 border-t border-white/15 bg-slate-950/90 py-12 px-4 sm:px-6 lg:px-8 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="space-y-1.5 text-center md:text-left">
+                <div class="text-white font-bold text-sm tracking-wide font-display">ACAV DIGITAL CORPORATION</div>
+                <div class="text-slate-400">Professional Digital Products &bull; LTSC Support</div>
+                <div class="text-slate-500 text-[11px] pt-1">&copy;2026 ACAV Digital Corporation. All rights reserved.</div>
+            </div>
+
+            <div class="flex items-center space-x-6 font-bold text-slate-300">
+                <a href="#home" onclick="showSection('home')" class="hover:text-aero-cyan transition-colors">Home</a>
+                <a href="#about" onclick="showSection('about')" class="hover:text-aero-cyan transition-colors">About Us</a>
+                <a href="#products" onclick="showSection('products')" class="hover:text-aero-cyan transition-colors">Digital Products</a>
+                
+                <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="p-2.5 rounded-xl gel-btn-secondary text-white ml-2">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APP NAVIGATION & INTERACTION CONTROLLER -->
+    <script>
+        // Update active tab highlight based on current view/scroll
+        function showSection(sectionId) {
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            const activeTab = document.getElementById('tab-' + sectionId);
+            if (activeTab) activeTab.classList.add('active');
+        }
+
+        // Mobile Drawer Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Scrollspy tab highlighting listener
+        window.addEventListener('scroll', () => {
+            const sections = ['home', 'about', 'products'];
+            const scrollPos = window.scrollY + 200;
+
+            for (const section of sections) {
+                const el = document.getElementById(section);
+                if (el) {
+                    const top = el.offsetTop;
+                    const height = el.offsetHeight;
+                    if (scrollPos >= top && scrollPos < top + height) {
+                        showSection(section);
+                        break;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
